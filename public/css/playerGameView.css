@@ -1,33 +1,86 @@
-html, body { height: 90%; padding: 0; margin: 0; }
-button{
-    width: 50%; height: 50%; float: left;
+html, body { height: 90%; padding: 0; margin: 0; font-family: "DM Sans", Avenir, sans-serif; }
+
+* {
+    box-sizing: border-box;
 }
-#answer1{
-    background-color: #4CAF50;
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 75vh;
+    width: 100%;
 }
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+main {
+    max-width: 1000px;
+    padding: 10px 30px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+button {
+    flex: 1;
+    height: 0px;
+    margin: 5px 0;
+    border: 2px solid #cde;
+    box-shadow: #cde 2px 2px;
+    border-radius: 6px;
+    transition: all 2ms;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:active {
+    opacity: 0.9;
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+@media screen and (min-width: 720px) {
+    .flex {
+        flex-direction: row;
+    }
+
+    button {
+        flex: none;
+        width: 49.5%;
+        height: 50%;
+    }
+}
+
+#answer1 {
+    background-color: #2ecc71;
+}
+
 #answer2{
-    background-color: #f94a1e;
+    background-color: #e74c3c;
 }
+
 #answer3{
-    background-color: #3399ff;
+    background-color: #3498db;
 }
+
 #answer4{
-    background-color: #ff9933;
+    background-color: #f39c12;
 }
 
 #buttons{
     text-align: center;
 }
 #nameText{
-    font-family: 'Raleway', sans-serif;
     padding: 0px 10px;
 }
 #scoreText{
-    font-family: 'Raleway', sans-serif;
     padding: 0px 10px;
 }
 #message{
-    font-family: 'Raleway', sans-serif;
     text-align: center;
     font-size: 35px;
 }

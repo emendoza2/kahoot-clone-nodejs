@@ -20,39 +20,56 @@
     }
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     -webkit-animation: bgcolor 20s infinite;
     animation: bgcolor 10s infinite;
     -webkit-animation-direction: alternate;
     animation-direction: alternate;
+    font-family: 'DM Sans', Avenir, sans-serif;
 }
-#title{
-    font-family: 'Raleway', sans-serif;
-    text-align: center;
-    font-size: 50px;
+
+main {
     color: white;
 }
+
+.h-100 {
+    height: 100vh;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;    
+    justify-content: center;
+}
+
+#title{
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+}
+
 #name{
-    width: 50%;
     padding: 12px 0px;
     margin: 8px 0;
     display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
     margin-right: auto;
     margin-left: auto;
     font-size: 20px;
     text-align: center;
 }
+
 #pin{
-    width: 50%;
     padding: 12px 0px;
     margin: 8px 0;
     display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
     margin-right: auto;
     margin-left: auto;
     font-size: 20px;
@@ -62,29 +79,40 @@ body {
     display: block;
     text-align: center;
     font-size: 25px;
-    font-family: 'Raleway', sans-serif;
     color: white;
 }
-#host{
-    color: white;
+a {
     text-decoration: none;
 }
-#host:hover{
+
+a:hover {
     text-decoration:underline;
 }
+
 #joinButton{
-    width: 50%;
+    font-weigt: bold;
     background-color: #4CAF50;
     color: white;
-    padding: 14px 20px;
+    padding: 14px 30px;
     margin: 8px 0;
-    border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     display: block;
     margin-right: auto;
     margin-left: auto;
     font-size: 20px;
-    background-color: #3A3B3A;
-    font-family: 'Raleway', sans-serif;
+    background-color: rgb(58, 58, 59);
+    border: 1px solid #ccc;
+    box-shadow: #ccc 2px 2px;
+}
+
+input {
+    font-family: "DM Sans", Avenir, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-shadow: #ccc 2px 2px;
+    box-sizing: border-box;
 }

@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Game | KahootClone</title>
-        <link rel = "stylesheet" href = "../../css/playerGameView.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    </head>
-    <body>
-        <div id = "stats">
-            <h4 id = "nameText">Name: </h4>
-            <h4 id = "scoreText">Score: </h4>
-            <h4 id = "rankText"></h4>
+
+<head>
+    <title>Game | KahootClone</title>
+    <link rel="stylesheet" href="../../css/playerGameView.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <div id="stats">
+            <h4 id="nameText">Name: </h4>
+            <h4 id="scoreText">Score: </h4>
+            <h4 id="rankText"></h4>
         </div>
-        <h2 id = "message"></h2>
-        <button onclick = "answerSubmitted(1)" id = "answer1" class = "button"></button>
-        <button onclick = "answerSubmitted(2)" id = "answer2" class = "button"></button>
-        <br>
-        <button onclick = "answerSubmitted(3)" id = "answer3" class = "button"></button>
-        <button onclick = "answerSubmitted(4)" id = "answer4" class = "button"></button>
-        <script src = "../../socket.io/socket.io.js"></script>
-        <script src = "../../js/libs/jqueryLibrary.js"></script>
-        <script src = "../../js/libs/deparam.js"></script>
-        <script src = "../../js/playerGame.js"></script>
-    </body>
+        <h2 id="message"></h2>
+        <div class="flex flex-wrap">
+            <button onclick="answerSubmitted(1)" id="answer1" class="button"><svg viewBox="-24 -24 48 48"
+                    width="2.5rem">
+                    <polygon points="0,-24 20.785,12 -20.785,12 " fill="#FFF" /></svg></button>
+            <button onclick="answerSubmitted(2)" id="answer2" class="button"><svg viewBox="0 0 24 24" width="2.5rem">
+                    <rect x="2" y="2" width="18" height="18" fill="#FFF" /></svg></button>
+            <button onclick="answerSubmitted(3)" id="answer3" class="button"><svg viewBox="-24 -24 48 48"
+                    width="2.5rem">
+                    <circle cx="0" r="22" fill="#FFF" /></svg></button>
+            <button onclick="answerSubmitted(4)" id="answer4" class="button"><svg viewBox="-24 -24 48 48"
+                    width="2.5rem">
+                    <polygon points="24,0 12,20.785 -12,20.785 -24,0 -12,-20.785 12,-20.785 " fill="#FFF" />
+                    </svg></button>
+        </div>
+    </main>
+    <script src="../../socket.io/socket.io.js"></script>
+    <script src="../../js/libs/jqueryLibrary.js"></script>
+    <script src="../../js/libs/deparam.js"></script>
+    <script src="../../js/playerGame.js"></script>
+</body>
+
 </html>

@@ -24,7 +24,7 @@ function answerSubmitted(num){
     if(playerAnswered == false){
         playerAnswered = true;
         
-        socket.emit('playerAnswer', num);//Sends player answer to server
+        socket.emit('playerAnswer', num); //Sends player answer to server
         
         //Hiding buttons from user
         document.getElementById('answer1').style.visibility = "hidden";
