@@ -48,32 +48,11 @@ socket.on('questionOver', function(playerData, correct){
         if (c === correct) {
             var a = document.getElementById('answer'+c);
             a.innerHTML = "&#10004" + a.innerHTML;
+            document.querySelector("#square" + c + " + .squareLabel").innerHTML = "&#10004";
         }
-    }
-    if(correct == 1){
-        document.getElementById('answer2').style.filter = "grayscale(50%)";
-        document.getElementById('answer3').style.filter = "grayscale(50%)";
-        document.getElementById('answer4').style.filter = "grayscale(50%)";
-        var current = document.getElementById('answer1').innerHTML;
-        document.getElementById('answer1').innerHTML = "&#10004" + " " + current;
-    }else if(correct == 2){
-        document.getElementById('answer1').style.filter = "grayscale(50%)";
-        document.getElementById('answer3').style.filter = "grayscale(50%)";
-        document.getElementById('answer4').style.filter = "grayscale(50%)";
-        var current = document.getElementById('answer2').innerHTML;
-        document.getElementById('answer2').innerHTML = "&#10004" + " " + current;
-    }else if(correct == 3){
-        document.getElementById('answer1').style.filter = "grayscale(50%)";
-        document.getElementById('answer2').style.filter = "grayscale(50%)";
-        document.getElementById('answer4').style.filter = "grayscale(50%)";
-        var current = document.getElementById('answer3').innerHTML;
-        document.getElementById('answer3').innerHTML = "&#10004" + " " + current;
-    }else if(correct == 4){
-        document.getElementById('answer1').style.filter = "grayscale(50%)";
-        document.getElementById('answer2').style.filter = "grayscale(50%)";
-        document.getElementById('answer3').style.filter = "grayscale(50%)";
-        var current = document.getElementById('answer4').innerHTML;
-        document.getElementById('answer4').innerHTML = "&#10004" + " " + current;
+        else {
+            document.getElementById("answer" + c).style.filter = "grayscale(40%)";
+        }
     }
     
     for(var i = 0; i < playerData.length; i++){
@@ -94,11 +73,6 @@ socket.on('questionOver', function(playerData, correct){
     answer2 = answer2 / total * 100;
     answer3 = answer3 / total * 100;
     answer4 = answer4 / total * 100;
-    
-    document.getElementById('square1').style.display = "inline-block";
-    document.getElementById('square2').style.display = "inline-block";
-    document.getElementById('square3').style.display = "inline-block";
-    document.getElementById('square4').style.display = "inline-block";
     
     document.getElementById('square1').style.height = answer1 + "px";
     document.getElementById('square2').style.height = answer2 + "px";

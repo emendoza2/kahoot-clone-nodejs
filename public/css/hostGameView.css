@@ -39,19 +39,26 @@ main {
     box-shadow: #e67e22 4px 4px;
 }
 
-.square{
+.bar {
+    display: inline-block;
+}
+.square {
     border: none;
-    padding: 15px 32px;
+    padding: 0 32px;
     text-align: center;
     text-decoration: none;
-    display: none;
+    display: block;
     font-size: 16px;
     margin: 4px 2px;
     width: 70px;
     height: 0px;
     font-size: 20px;
+    transition: height 0.5s ease-out;
 }
 
+.squareLabel {
+
+}
 #square1 {
     background-color: #2ecc71;
 }
