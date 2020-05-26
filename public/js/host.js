@@ -17,10 +17,10 @@ socket.on('showGamePin', function(data){
 //Adds player's name to screen and updates player count
 socket.on('updatePlayerLobby', function(data){
     
-    document.getElementById('players').value = "";
-    
+    $players = $('#players');
+
     for(var i = 0; i < data.length; i++){
-        document.getElementById('players').value += data[i].name + "\n";
+        $players.append("<li>"+data[i].name+"</li>");
     }
     
 });

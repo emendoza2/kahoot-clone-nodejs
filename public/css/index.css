@@ -101,9 +101,15 @@ a:hover {
     margin-right: auto;
     margin-left: auto;
     font-size: 20px;
-    background-color: rgb(58, 58, 59);
+    background-color: #334;
     border: 1px solid #ccc;
-    box-shadow: #ccc 2px 2px;
+    box-shadow: #ccc 2px 2px;;
+}
+
+#joinButton:active {
+    opacity: 0.9;
+    box-shadow: #ccc 0 0;
+    transform: translate(2px, 2px);
 }
 
 input {
@@ -115,4 +121,8 @@ input {
     border: 1px solid #ccc;
     box-shadow: #ccc 2px 2px;
     box-sizing: border-box;
+}
+
+input:focus, button:focus {
+    outline: none;
 }

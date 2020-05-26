@@ -1,35 +1,44 @@
-#answer1{
-    background-color: #4CAF50;
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0; padding: 0;
+    font-family: 'DM Sans', Avenir sans-serif;
+    color: #333;
+}
+
+main {
+    padding: 0 20px;
+}
+
+.answer {
     margin: auto;
     padding: 30px 20px;
-    height: 50%;
-    font-family: 'Raleway', sans-serif;
     font-size: 20px;
+    color: white;
 }
+
+#answer1 {
+    background-color: #2ecc71;
+    box-shadow: #27ae60 4px 4px;
+}
+
 #answer2{
-    background-color: #f94a1e;
-    margin: auto;
-    padding: 30px 20px;
-    height: 50%;
-    font-family: 'Raleway', sans-serif;
-    font-size: 20px;
+    background-color: #e74c3c;
+    box-shadow: #c0392b 4px 4px;
 }
+
 #answer3{
-    background-color: #3399ff;
-    margin: auto;
-    padding: 30px 20px;
-    height: 50%;
-    font-family: 'Raleway', sans-serif;
-    font-size: 20px;
+    background-color: #3498db;
+    box-shadow: #2980b9 4px 4px;
 }
+
 #answer4{
-    background-color: #ff9933;
-    margin: auto;
-    padding: 30px 20px;
-    height: 50%;
-    font-family: 'Raleway', sans-serif;
-    font-size: 20px;
+    background-color: #f39c12;
+    box-shadow: #e67e22 4px 4px;
 }
+
 .square{
     border: none;
     padding: 15px 32px;
@@ -43,70 +52,54 @@
     font-size: 20px;
 }
 
-#square1{
-    background-color: #4CAF50;
+#square1 {
+    background-color: #2ecc71;
 }
+
 #square2{
-    background-color: #f94a1e;
+    background-color: #e74c3c;
 }
+
 #square3{
-    background-color: #3399ff;
+    background-color: #3498db;
 }
+
 #square4{
-    background-color: #ff9933;
+    background-color: #f39c12;
 }
 
 #nextQButton{
     display: none;
 }
-#question{
-    font-family: 'Raleway', sans-serif;
-}
-#timerText{
-    font-family: 'Raleway', sans-serif;
-}
 #num{
-    font-family: 'Tajawal', sans-serif;
     font-size: 35px;
-}
-#playersAnswered{
-    font-family: 'Tajawal', sans-serif;
-}
-#questionNum{
-    font-family: 'Tajawal', sans-serif;
 }
 
 #winner1{
-    font-family: 'Raleway', sans-serif;
     text-align: center;
     font-size: 30px;
     display: none;
 }
 #winner2{
-    font-family: 'Raleway', sans-serif;
     text-align: center;
     font-size: 22px;
     display: none;
 }
 #winner3{
-    font-family: 'Raleway', sans-serif;
     text-align: center;
     font-size: 20px;
     display: none;
 }
 #winner4{
-    font-family: 'Raleway', sans-serif;
     text-align: center;
     display: none;
 }
 #winner5{
-    font-family: 'Raleway', sans-serif;
     text-align: center;
     display: none;
 }
 #winnerTitle{
     text-align: center;
-    font-family: 'Raleway', sans-serif;
     font-size: 35px;
     color: #3399ff;
     display: none;

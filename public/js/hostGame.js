@@ -44,6 +44,12 @@ socket.on('questionOver', function(playerData, correct){
     document.getElementById('timerText').style.display = "none";
     
     //Shows user correct answer with effects on elements
+    for (var c = 1; c <= 4; c ++) {
+        if (c === correct) {
+            var a = document.getElementById('answer'+c);
+            a.innerHTML = "&#10004" + a.innerHTML;
+        }
+    }
     if(correct == 1){
         document.getElementById('answer2').style.filter = "grayscale(50%)";
         document.getElementById('answer3').style.filter = "grayscale(50%)";
