@@ -6,6 +6,8 @@ var timer;
 
 var time = 20;
 
+var leaderboard = [];
+
 //When host connects to server
 socket.on('connect', function() {
     
@@ -34,10 +36,7 @@ socket.on('updatePlayersAnswered', function(data){
 
 socket.on('questionOver', function(playerData, correct){
     clearInterval(timer);
-    var answer1 = 0;
-    var answer2 = 0;
-    var answer3 = 0;
-    var answer4 = 0;
+    var answers = [];
     var total = 0;
     //Hide elements on page
     document.getElementById('playersAnswered').style.display = "none";
@@ -56,23 +55,16 @@ socket.on('questionOver', function(playerData, correct){
     }
     
     for(var i = 0; i < playerData.length; i++){
-        if(playerData[i].gameData.answer == 1){
-            answer1 += 1;
-        }else if(playerData[i].gameData.answer == 2){
-            answer2 += 1;
-        }else if(playerData[i].gameData.answer == 3){
-            answer3 += 1;
-        }else if(playerData[i].gameData.answer == 4){
-            answer4 += 1;
-        }
-        total += 1;
+        answer[playerData[i].gameData.answer] = answer[playerData[i].gameData.answer] || 0
+        answer[playerData[i].gameData.answer] += 1;
+        total += 1;   
     }
     
     //Gets values for graph
-    answer1 = answer1 / total * 100;
-    answer2 = answer2 / total * 100;
-    answer3 = answer3 / total * 100;
-    answer4 = answer4 / total * 100;
+    answer1 = answer1 / total * 100 + 16;
+    answer2 = answer2 / total * 100 + 16;
+    answer3 = answer3 / total * 100 + 16;
+    answer4 = answer4 / total * 100 + 16;
     
     document.getElementById('square1').style.height = answer1 + "px";
     document.getElementById('square2').style.height = answer2 + "px";
@@ -80,7 +72,19 @@ socket.on('questionOver', function(playerData, correct){
     document.getElementById('square4').style.height = answer4 + "px";
     
     document.getElementById('nextQButton').style.display = "block";
+
+    leaderboard = playerData.sort(function(a, b) {
+        return a.gameData.score - b.gameData.score;
+    }).slice(0, 4);
     
+    setTimeout(function() {
+        $('#qa').hide();
+        $('#leaderboard').show();
+        for (var i = 0; i < leaderboard.length; i ++) {
+            leaderboard.append("<li>"+leaderboard[i].gameData.score+"</li>");
+        }
+    }, 1000)
+
 });
 
 function nextQuestion(){

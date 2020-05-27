@@ -30,15 +30,40 @@
             <div class="squareLabel"></div>
         </div>
 
-        <h2 id="question">Question</h2>
-        <h3 id="answer1" class="answer">Answer</h3>
-        <br>
-        <h3 id="answer2" class="answer">Answer</h3>
-        <br>
-        <h3 id="answer3" class="answer">Answer</h3>
-        <br>
-        <h3 id="answer4" class="answer">Answer</h3>
-
+        <div id="qa">
+            <h2 id="question">Question</h2>
+            <h3 class="answer answer1">
+                <svg style="display: inline; vertical-align: middle; margin-right: 1em;" viewBox="-24 -24 48 48"
+                    width="2rem">
+                    <polygon points="0,-24 20.785,12 -20.785,12 " fill="#FFF" /></svg>
+                <span id="answer1">Answer</span>
+            </h3>
+            <h3 class="answer answer2">
+                <svg style="display: inline; vertical-align: middle; margin-right: 1em;" viewBox="0 0 24 24"
+                    width="2rem">
+                    <rect x="2" y="2" width="18" height="18" fill="#FFF" /></svg>
+                <span id="answer2">Answer</span>
+            </h3>
+            <h3 class="answer answer3">
+                <svg style="display: inline; vertical-align: middle; margin-right: 1em;" viewBox="-24 -24 48 48"
+                    width="2rem">
+                    <circle cx="0" r="22" fill="#FFF" /></svg>
+                <span id="answer3">Answer</span>
+            </h3>
+            <h3 class="answer answer4">
+                <svg style="display: inline; vertical-align: middle; margin-right: 1em;" viewBox="-24 -24 48 48"
+                    width="2rem">
+                    <polygon points="24,0 12,20.785 -12,20.785 -24,0 -12,-20.785 12,-20.785 " fill="#FFF" /></svg>
+                <span id="answer4">Answer</span>
+            </h3>
+        </div>
+        <div id="leaderboard">
+            <ol>
+                <li>Elijah</li>
+                <li>Eda</li>
+                <li>Titu</li>
+            </ol>
+        </div>
         <br>
         <button onclick="nextQuestion()" id="nextQButton">Next Question</button>
 

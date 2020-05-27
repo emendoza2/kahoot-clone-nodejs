@@ -46,11 +46,11 @@ socket.on('answerResult', function(data){
 
 socket.on('questionOver', function(data){
     if(correct == true){
-        document.body.style.backgroundColor = "#4CAF50";
+        document.body.style.backgroundColor = "#2ecc71";
         document.getElementById('message').style.display = "block";
         document.getElementById('message').innerHTML = "Correct!";
     }else{
-        document.body.style.backgroundColor = "#f94a1e";
+        document.body.style.backgroundColor = "#e74c3c";
         document.getElementById('message').style.display = "block";
         document.getElementById('message').innerHTML = "Incorrect!";
     }
