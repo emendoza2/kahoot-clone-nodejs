@@ -155,22 +155,69 @@ socket.on('getTime', function(player){
     });
 });
 
+var app = html`<main><h4 id="questionNum">Question 1 / x</h4>
+<h4 id="playersAnswered">Players Answered: 0 / x</h4>
+<h3 id="timerText">Time Left:<span id="num"> 20</span></h3>
 
+<div class="bar">
+    <div class="square" id="square1"></div>
+    <div class="squareLabel"></div>
+</div>
+<div class="bar">
+    <div class="square" id="square2"></div>
+    <div class="squareLabel"></div>
+</div>
+<div class="bar">
+    <div class="square" id="square3"></div>
+    <div class="squareLabel"></div>
+</div>
+<div class="bar">
+    <div class="square" id="square4"></div>
+    <div class="squareLabel"></div>
+</div>
 
+<div id="qa">
+    <h2 id="question">Question</h2>
+    <h3 class="answer answer1">
+        <svg style="display: inline; vertical-align: middle; margin-right: 1em;" viewBox="-24 -24 48 48"
+            width="2rem">
+            <polygon points="0,-24 20.785,12 -20.785,12 " fill="#FFF" /></svg>
+        <span id="answer1">Answer</span>
+    </h3>
+    <h3 class="answer answer2">
+        <svg style="display: inline; vertical-align: middle; margin-right: 1em;" viewBox="0 0 24 24"
+            width="2rem">
+            <rect x="2" y="2" width="18" height="18" fill="#FFF" /></svg>
+        <span id="answer2">Answer</span>
+    </h3>
+    <h3 class="answer answer3">
+        <svg style="display: inline; vertical-align: middle; margin-right: 1em;" viewBox="-24 -24 48 48"
+            width="2rem">
+            <circle cx="0" r="22" fill="#FFF" /></svg>
+        <span id="answer3">Answer</span>
+    </h3>
+    <h3 class="answer answer4">
+        <svg style="display: inline; vertical-align: middle; margin-right: 1em;" viewBox="-24 -24 48 48"
+            width="2rem">
+            <polygon points="24,0 12,20.785 -12,20.785 -24,0 -12,-20.785 12,-20.785 " fill="#FFF" /></svg>
+        <span id="answer4">Answer</span>
+    </h3>
+</div>
+<div id="leaderboard">
+    <ol>
+        <li>Elijah</li>
+        <li>Eda</li>
+        <li>Titu</li>
+    </ol>
+</div>
+<br>
+<button onclick="nextQuestion()" id="nextQButton">Next Question</button>
 
+<h2 id="winnerTitle">Top 5 Players</h4>
+    <h3 id="winner1">1.</h3>
+    <h3 id="winner2">2.</h3>
+    <h3 id="winner3">3.</h3>
+    <h3 id="winner4">4.</h3>
+    <h3 id="winner5">5.</h3></main>`
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+render(app, document.getElementById("app"));
