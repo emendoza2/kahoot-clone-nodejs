@@ -33,6 +33,12 @@ function endGame(){
     window.location.href = "/";
 }
 
+function deleteGame(){
+    console.log("delete", $.deparam().id);
+    socket.emit('deleteGame', $.deparam().id);
+    window.location.href="/create/"
+}
+
 //When server starts the game
 socket.on('gameStarted', function(id){
     console.log('Game Started!');

@@ -434,6 +434,29 @@ io.on('connection', (socket) => {
         game.gameLive = true;
         socket.emit('gameStarted', game.hostId);//Tell player and host that game has started
     });
+
+    //When the host deletes the game
+    socket.on('deleteGame', (id) => {
+        
+        MongoClient.connect(url, function(err, db){
+            if (err) throw err;
+            
+            var dbo = db.db('kahootDB');
+            var collection = dbo.collection("kahootGames");
+            dbo.collection('kahootGames').find({}).toArray(function(err, result){
+                if(err) throw err;
+                result.forEach(o => {
+                    console.log(o);
+                })
+            })
+            var q = {id: parseInt(id)};
+            console.log(q);
+            collection.deleteOne(q, (err, document) => {
+                if (err) throw err;
+                console.log("1 game deleted", document);
+            });
+        });
+    })
     
     //Give user game names data
     socket.on('requestDbNames', function(){

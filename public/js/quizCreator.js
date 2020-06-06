@@ -1,4 +1,10 @@
 var socket = io();
+
+//import preact stuff
+window.h = preact.h;
+window.Component = preact.Component;
+window.render = preact.render;
+
 var questionNum = 1; //Starts at two because question 1 is already present
 
 function updateDatabase(){
@@ -116,11 +122,25 @@ function setBGColor(){
     document.getElementById('question-field').style.backgroundColor = randColor;
 }
 
+var html = htm.bind(h);
 
 
+function Question() {
+    return html`<div class="question-field">
+    <label>Question 1: </label>
+    <input class = "question" id = "q1" type = "text" autofocus />
+    <label>Answer 1: </label>
+    <input id = "1a1" type = "text" autofocus />
+    <label>Answer 2: </label>
+    <input id = "1a2" type = "text" autofocus />
+    <label>Answer 3: </label>
+    <input id = "1a3"  type = "text" autofocus />
+    <label>Answer 4: </label>
+    <input id = "1a4"  type = "text" autofocus />
+    <label>Correct Answer (1-4) :</label>
+    <input class = "correct" id = "correct1"  type = "number" autofocus />
+    </div>`;
+}
 
-
-
-
-
-
+var app = html`<div><h1>Hello World!</h1><${Question} /></div>`;
+render(app, document.getElementById("app"));

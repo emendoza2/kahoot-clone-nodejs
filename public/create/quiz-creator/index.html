@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Creator | KahootClone</title>
+        <title>Creator</title>
         <link rel = "stylesheet" href = "../../css/quizCreator.css">
         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     </head>
     <body onload = "setBGColor()">
-        <h1 id = "title">Kahoot Quiz Creator Studio</h1>
-        
+        <div id="app">
+            
+        </div>
+        <h1 id = "title">Quiz Creator Studio</h1>
+
         <div class="form-field">
             <label id = "quizTitle">Quiz Title</label>
             <input id = "name" type = "text" name="name" autofocus/>
@@ -27,7 +30,7 @@
                 <br>
                 <br>
                 <label>Answer 3: </label>
-                <input id = "1a3"  type = "text"autofocus/>
+                <input id = "1a3"  type = "text" autofocus/>
                 <label>Answer 4: </label>
                 <input id = "1a4"  type = "text" autofocus/>
                 <br>
@@ -51,6 +54,8 @@
         <button onclick = 'cancelQuiz()'>Cancel quiz and return to quiz selection</button>
         
         <script src = "../../socket.io/socket.io.js"></script>
+        <script src='https://unpkg.com/preact'></script>
+        <script src="https://unpkg.com/htm"></script>
         <script src = "../../js/quizCreator.js"></script>
     </body>
 </html>
