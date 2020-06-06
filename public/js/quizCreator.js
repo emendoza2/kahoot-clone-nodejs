@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 var socket = io();
+=======
+//var socket = io();
+>>>>>>> acc022e61d9345aa4a1e00271d249e19a80f5a34
 
 //import preact stuff
 window.h = preact.h;
@@ -7,10 +11,10 @@ window.render = preact.render;
 
 var questionNum = 1; //Starts at two because question 1 is already present
 
-function updateDatabase(){
+function updateDatabase() {
     var questions = [];
     var name = document.getElementById('name').value;
-    for(var i = 1; i <= questionNum; i++){
+    for (var i = 1; i <= questionNum; i++) {
         var question = document.getElementById('q' + i).value;
         var answer1 = document.getElementById(i + 'a1').value;
         var answer2 = document.getElementById(i + 'a2').value;
@@ -18,49 +22,49 @@ function updateDatabase(){
         var answer4 = document.getElementById(i + 'a4').value;
         var correct = document.getElementById('correct' + i).value;
         var answers = [answer1, answer2, answer3, answer4];
-        questions.push({"question": question, "answers": answers, "correct": correct})
+        questions.push({ "question": question, "answers": answers, "correct": correct })
     }
-    
-    var quiz = {id: 0, "name": name, "questions": questions};
+
+    var quiz = { id: 0, "name": name, "questions": questions };
     socket.emit('newQuiz', quiz);
 }
 
-function addQuestion(){
+function addQuestion() {
     questionNum += 1;
-    
+
     var questionsDiv = document.getElementById('allQuestions');
-    
+
     var newQuestionDiv = document.createElement("div");
-    
+
     var questionLabel = document.createElement('label');
     var questionField = document.createElement('input');
-    
+
     var answer1Label = document.createElement('label');
     var answer1Field = document.createElement('input');
-    
+
     var answer2Label = document.createElement('label');
     var answer2Field = document.createElement('input');
-    
+
     var answer3Label = document.createElement('label');
     var answer3Field = document.createElement('input');
-    
+
     var answer4Label = document.createElement('label');
     var answer4Field = document.createElement('input');
-    
+
     var correctLabel = document.createElement('label');
     var correctField = document.createElement('input');
-    
+
     questionLabel.innerHTML = "Question " + String(questionNum) + ": ";
     questionField.setAttribute('class', 'question');
     questionField.setAttribute('id', 'q' + String(questionNum));
     questionField.setAttribute('type', 'text');
-    
+
     answer1Label.innerHTML = "Answer 1: ";
     answer2Label.innerHTML = " Answer 2: ";
     answer3Label.innerHTML = "Answer 3: ";
     answer4Label.innerHTML = " Answer 4: ";
     correctLabel.innerHTML = "Correct Answer (1-4): ";
-    
+
     answer1Field.setAttribute('id', String(questionNum) + "a1");
     answer1Field.setAttribute('type', 'text');
     answer2Field.setAttribute('id', String(questionNum) + "a2");
@@ -71,9 +75,9 @@ function addQuestion(){
     answer4Field.setAttribute('type', 'text');
     correctField.setAttribute('id', 'correct' + String(questionNum));
     correctField.setAttribute('type', 'number');
-    
+
     newQuestionDiv.setAttribute('id', 'question-field');//Sets class of div
-    
+
     newQuestionDiv.appendChild(questionLabel);
     newQuestionDiv.appendChild(questionField);
     newQuestionDiv.appendChild(document.createElement('br'));
@@ -92,55 +96,86 @@ function addQuestion(){
     newQuestionDiv.appendChild(document.createElement('br'));
     newQuestionDiv.appendChild(correctLabel);
     newQuestionDiv.appendChild(correctField);
-    
+
     questionsDiv.appendChild(document.createElement('br'));//Creates a break between each question
     questionsDiv.appendChild(newQuestionDiv);//Adds the question div to the screen
-    
+
     newQuestionDiv.style.backgroundColor = randomColor();
 }
 
 //Called when user wants to exit quiz creator
-function cancelQuiz(){
+function cancelQuiz() {
     if (confirm("Are you sure you want to exit? All work will be DELETED!")) {
         window.location.href = "../";
     }
 }
 
-socket.on('startGameFromCreator', function(data){
-    window.location.href = "../../host/?id=" + data;
-});
+// socket.on('startGameFromCreator', function(data){
+//     window.location.href = "../../host/?id=" + data;
+// });
 
-function randomColor(){
-    
+function randomColor() {
+
     var colors = ['#4CAF50', '#f94a1e', '#3399ff', '#ff9933'];
     var randomNum = Math.floor(Math.random() * 4);
     return colors[randomNum];
 }
 
-function setBGColor(){
+function setBGColor() {
     var randColor = randomColor();
     document.getElementById('question-field').style.backgroundColor = randColor;
 }
 
 var html = htm.bind(h);
 
+var colors = [
+    "#2ecc71",
+    "#e74c3c",
+    "#3498db",
+    "#f39c12"
+]
+
+// function Answer(n) {
+//     return html`<div class="pa3 bg-black-20" key="${n}" style="background-color:${colors[n]}">
+//     <label>Answer ${n}: </label>
+//     <input id="1a1" type="text" autofocus />
+//     </div>`
+// }
 
 function Question() {
-    return html`<div class="question-field">
-    <label>Question 1: </label>
-    <input class = "question" id = "q1" type = "text" autofocus />
-    <label>Answer 1: </label>
-    <input id = "1a1" type = "text" autofocus />
-    <label>Answer 2: </label>
-    <input id = "1a2" type = "text" autofocus />
-    <label>Answer 3: </label>
-    <input id = "1a3"  type = "text" autofocus />
-    <label>Answer 4: </label>
-    <input id = "1a4"  type = "text" autofocus />
-    <label>Correct Answer (1-4) :</label>
-    <input class = "correct" id = "correct1"  type = "number" autofocus />
+    // var answers;
+    // for (var i = 0; i < 4; i++) {
+    //     answers[i] = Answer(i);
+    // }
+    return html`<div class="question-field mh4 pa4 br4 bg-light-gray">
+        <div class="mb3">
+            <input class="question bn br4 bg-black-10 ph3 pv2 f4 b" id="q1" type="text" placeholder="Question Title" autofocus />
+        </div>
+
+        ${[0,1,2,3].map(n => html`<div class="pr2 dib-ns w-50-ns"><div class="dib pa3 mb3 mr2 br4 flex items-center justify-between" style="background-color:${colors[n]}">
+        <input class="f3 bn input-reset white bg-transparent" key="${n}" id="1a1" type="text" placeholder="Answer ${n+1}" autofocus /> <div class="dib relative"><input type="checkbox" class="checkbox absolute z-5 w-100 h-100 o-0 input-reset pointer" /> <span class="checkbox-wrapper relative z-4 dib w2 h2 bg-transparent overflow-hidden br-pill ba bw2 b--white v-mid bg-animate bg-center"></span></div>
+    </div></div>`)}
+
+        <label>Correct Answer (1-4) :</label>
+        <input class="correct" id="correct1"  type="number" autofocus />
     </div>`;
 }
 
-var app = html`<div><h1>Hello World!</h1><${Question} /></div>`;
+class QuestionList extends Component {
+    state = { 
+        questions: [
+            // title
+            // answers
+        ]
+    }
+    constructor(props) {
+        super(props);
+        this.params
+    }
+    render() {
+        return html`<div class${this.state.questions.map((q, i) => html``)}`
+    }
+}
+
+var app = html`<div><h1 class="tc">Quiz Creator Studio</h1><${Question} /></div>`;
 render(app, document.getElementById("app"));
