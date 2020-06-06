@@ -142,17 +142,21 @@ var colors = [
 //     </div>`
 // }
 
-function Question() {
+function Question(props) {
     // var answers;
     // for (var i = 0; i < 4; i++) {
     //     answers[i] = Answer(i);
     // }
+    this.props = props;
+}
+
+Question.prototype.render = function() {
     return html`<div class="question-field mh4 pa4 br4 bg-light-gray">
         <div class="mb3">
-            <input class="question bn br4 bg-black-10 ph3 pv2 f4 b" id="q1" type="text" placeholder="Question Title" autofocus />
+            <input class="question bn br4 bg-black-10 ph3 pv2 f4 b" id="q1" type="text" placeholder="Question Title" value=${this.props.title} autofocus />
         </div>
 
-        ${[0,1,2,3].map(n => html`<div class="pr2 dib-ns w-50-ns"><div class="dib pa3 mb3 mr2 br4 flex items-center justify-between" style="background-color:${colors[n]}">
+        ${this.props.answers.map(n => html`<div class="pr2 dib-ns w-50-ns"><div class="dib pa3 mb3 mr2 br4 flex items-center justify-between" style="background-color:${colors[n]}">
         <input class="f3 bn input-reset white bg-transparent" key="${n}" id="1a1" type="text" placeholder="Answer ${n+1}" autofocus /> <div class="dib relative"><input type="checkbox" class="checkbox absolute z-5 w-100 h-100 o-0 input-reset pointer" /> <span class="checkbox-wrapper relative z-4 dib w2 h2 bg-transparent overflow-hidden br-pill ba bw2 b--white v-mid bg-animate bg-center"></span></div>
     </div></div>`)}
 
@@ -164,6 +168,7 @@ function Question() {
 class QuestionList extends Component {
     state = { 
         questions: [
+            // id
             // title
             // answers
         ]
@@ -173,7 +178,10 @@ class QuestionList extends Component {
         this.params
     }
     render() {
-        return html`<div class${this.state.questions.map((q, i) => html``)}`
+        var questions = this.state.questions;
+        return html`<div>
+        ${ questions.map( function(q) { return html`<${Question} key=${q.id} title=${q.title} answers=${q.answers} />` } ) }
+      </div>`
     }
 }
 
