@@ -1,139 +1,15 @@
-<<<<<<< HEAD
 var socket = io();
-=======
-//var socket = io();
->>>>>>> acc022e61d9345aa4a1e00271d249e19a80f5a34
 
 //import preact stuff
 window.h = preact.h;
 window.Component = preact.Component;
 window.render = preact.render;
 
-var questionNum = 1; //Starts at two because question 1 is already present
-
-function updateDatabase() {
-    var questions = [];
-    var name = document.getElementById('name').value;
-    for (var i = 1; i <= questionNum; i++) {
-        var question = document.getElementById('q' + i).value;
-        var answer1 = document.getElementById(i + 'a1').value;
-        var answer2 = document.getElementById(i + 'a2').value;
-        var answer3 = document.getElementById(i + 'a3').value;
-        var answer4 = document.getElementById(i + 'a4').value;
-        var correct = document.getElementById('correct' + i).value;
-        var answers = [answer1, answer2, answer3, answer4];
-        questions.push({ "question": question, "answers": answers, "correct": correct })
-    }
-
-    var quiz = { id: 0, "name": name, "questions": questions };
-    socket.emit('newQuiz', quiz);
-}
-
-function addQuestion() {
-    questionNum += 1;
-
-    var questionsDiv = document.getElementById('allQuestions');
-
-    var newQuestionDiv = document.createElement("div");
-
-    var questionLabel = document.createElement('label');
-    var questionField = document.createElement('input');
-
-    var answer1Label = document.createElement('label');
-    var answer1Field = document.createElement('input');
-
-    var answer2Label = document.createElement('label');
-    var answer2Field = document.createElement('input');
-
-    var answer3Label = document.createElement('label');
-    var answer3Field = document.createElement('input');
-
-    var answer4Label = document.createElement('label');
-    var answer4Field = document.createElement('input');
-
-    var correctLabel = document.createElement('label');
-    var correctField = document.createElement('input');
-
-    questionLabel.innerHTML = "Question " + String(questionNum) + ": ";
-    questionField.setAttribute('class', 'question');
-    questionField.setAttribute('id', 'q' + String(questionNum));
-    questionField.setAttribute('type', 'text');
-
-    answer1Label.innerHTML = "Answer 1: ";
-    answer2Label.innerHTML = " Answer 2: ";
-    answer3Label.innerHTML = "Answer 3: ";
-    answer4Label.innerHTML = " Answer 4: ";
-    correctLabel.innerHTML = "Correct Answer (1-4): ";
-
-    answer1Field.setAttribute('id', String(questionNum) + "a1");
-    answer1Field.setAttribute('type', 'text');
-    answer2Field.setAttribute('id', String(questionNum) + "a2");
-    answer2Field.setAttribute('type', 'text');
-    answer3Field.setAttribute('id', String(questionNum) + "a3");
-    answer3Field.setAttribute('type', 'text');
-    answer4Field.setAttribute('id', String(questionNum) + "a4");
-    answer4Field.setAttribute('type', 'text');
-    correctField.setAttribute('id', 'correct' + String(questionNum));
-    correctField.setAttribute('type', 'number');
-
-    newQuestionDiv.setAttribute('id', 'question-field');//Sets class of div
-
-    newQuestionDiv.appendChild(questionLabel);
-    newQuestionDiv.appendChild(questionField);
-    newQuestionDiv.appendChild(document.createElement('br'));
-    newQuestionDiv.appendChild(document.createElement('br'));
-    newQuestionDiv.appendChild(answer1Label);
-    newQuestionDiv.appendChild(answer1Field);
-    newQuestionDiv.appendChild(answer2Label);
-    newQuestionDiv.appendChild(answer2Field);
-    newQuestionDiv.appendChild(document.createElement('br'));
-    newQuestionDiv.appendChild(document.createElement('br'));
-    newQuestionDiv.appendChild(answer3Label);
-    newQuestionDiv.appendChild(answer3Field);
-    newQuestionDiv.appendChild(answer4Label);
-    newQuestionDiv.appendChild(answer4Field);
-    newQuestionDiv.appendChild(document.createElement('br'));
-    newQuestionDiv.appendChild(document.createElement('br'));
-    newQuestionDiv.appendChild(correctLabel);
-    newQuestionDiv.appendChild(correctField);
-
-    questionsDiv.appendChild(document.createElement('br'));//Creates a break between each question
-    questionsDiv.appendChild(newQuestionDiv);//Adds the question div to the screen
-
-    newQuestionDiv.style.backgroundColor = randomColor();
-}
-
-//Called when user wants to exit quiz creator
-function cancelQuiz() {
-    if (confirm("Are you sure you want to exit? All work will be DELETED!")) {
-        window.location.href = "../";
-    }
-}
-
-// socket.on('startGameFromCreator', function(data){
-//     window.location.href = "../../host/?id=" + data;
-// });
-
-function randomColor() {
-
-    var colors = ['#4CAF50', '#f94a1e', '#3399ff', '#ff9933'];
-    var randomNum = Math.floor(Math.random() * 4);
-    return colors[randomNum];
-}
-
-function setBGColor() {
-    var randColor = randomColor();
-    document.getElementById('question-field').style.backgroundColor = randColor;
-}
-
 var html = htm.bind(h);
 
-var colors = [
-    "#2ecc71",
-    "#e74c3c",
-    "#3498db",
-    "#f39c12"
-]
+var types = ["Open", "Choice", "Slide"];
+
+var colors = ["#41bbc5", "#fa557a", "#6bdd8c", "#f764de", "#72df19", "#d592eb", "#8dbcf9", "#90a65d"];
 
 // function Answer(n) {
 //     return html`<div class="pa3 bg-black-20" key="${n}" style="background-color:${colors[n]}">
@@ -142,48 +18,187 @@ var colors = [
 //     </div>`
 // }
 
+function Answer(props) {
+    return html`
+    <div class="pr2 dib-ns w-50-ns">
+        <div class="dib relative pa3 mb3 mr2 br4 flex items-center justify-between" style="background-color:${props.color}">
+            <button class="absolute top-0 left-0 pl2 pt1 glow o-50 f6 bg-transparent white bn outline-none" onClick=${props.onDelete}>x</button>
+            <input 
+                class="f3 bn input-reset white bg-transparent"  
+                id="1a1" 
+                type="text" 
+                placeholder="Answer" 
+                value="${props.value}" 
+                onChange=${e => props.handleAnswerChange(e)} 
+                autofocus /> 
+            <div class="dib relative">
+                <input type="checkbox" class="checkbox absolute z-5 w-100 h-100 o-0 input-reset pointer" onClick=${props.handleChecked} checked="${props.correct}" /> 
+                <span class="checkbox-wrapper relative z-4 dib w2 h2 bg-transparent overflow-hidden br-pill ba bw2 b--white v-mid bg-animate bg-center"></span>
+            </div>
+        </div>
+    </div>`;
+}
+
+
+
 function Question(props) {
     // var answers;
     // for (var i = 0; i < 4; i++) {
     //     answers[i] = Answer(i);
     // }
-    this.props = props;
-}
-
-Question.prototype.render = function() {
-    return html`<div class="question-field mh4 pa4 br4 bg-light-gray">
+    return html`<div class="question-field mh4 pa4 br4 bg-light-gray mb3">
         <div class="mb3">
-            <input class="question bn br4 bg-black-10 ph3 pv2 f4 b" id="q1" type="text" placeholder="Question Title" value=${this.props.title} autofocus />
+            <input class="db w-100 question bn bg-transparent f2 b tc input-reset" type="text" placeholder="${props.type !== "Slide" ? "Question" : "Title"}" value=${props.title} onChange=${e => props.onTitleChange(e)} autofocus />
         </div>
 
-        ${this.props.answers.map(n => html`<div class="pr2 dib-ns w-50-ns"><div class="dib pa3 mb3 mr2 br4 flex items-center justify-between" style="background-color:${colors[n]}">
-        <input class="f3 bn input-reset white bg-transparent" key="${n}" id="1a1" type="text" placeholder="Answer ${n+1}" autofocus /> <div class="dib relative"><input type="checkbox" class="checkbox absolute z-5 w-100 h-100 o-0 input-reset pointer" /> <span class="checkbox-wrapper relative z-4 dib w2 h2 bg-transparent overflow-hidden br-pill ba bw2 b--white v-mid bg-animate bg-center"></span></div>
-    </div></div>`)}
+        ${props.type !== "Slide" && props.answers.map((answer, i) => html`<${Answer} key=${answer.id} color=${colors[i % colors.length]} value="${answer.value}" correct="${answer.correct}" onDelete=${e => props.onDelete(i, e)} handleAnswerChange=${e => props.onAnswerChange(i, e)} handleChecked=${() => props.onChecked(i)} />`)}
+        
+        ${props.type !== "Slide" && html`<button onClick=${() => props.onAddAnswer()} class="button link bg-transparent bn f3">+</button>`}
 
-        <label>Correct Answer (1-4) :</label>
-        <input class="correct" id="correct1"  type="number" autofocus />
+        <div class="mt2 flex justify-between">
+            <select value=${props.type} onChange=${(e) => props.onTypeChange(e)}>
+                ${types.map(v => html`<option value="${v}">${v}</option>`)}
+            </select>
+            <button onClick=${() => props.onDelete()}>Delete</button>
+        </div>
     </div>`;
 }
 
 class QuestionList extends Component {
-    state = { 
-        questions: [
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: "",
+            questions: [
+                {
+                    id: 1,
+                    question: "",
+                    answers: [
+                        {
+                            id: 1,
+                            value: "",
+                            correct: false
+                        }
+                    ]
+                    // id
+                    // title
+                    // answers
+                }
+            ]
+        }
+
+        console.log(this.state)
+    }
+
+    handleAnswerChange(q, i, event) {
+        var questions = this.state.questions.slice();
+        var question = questions[q];
+        question.answers[i].value = event.target.value;
+        this.setState({ questions: questions });
+    }
+    handleAddAnswer(q) {
+        var questions = this.state.questions.slice();
+        var question = questions[q];
+        var answers = question.answers;
+        answers.push({
+            id: answers[answers.length - 1] + 1,
+            value: ""
+        });
+        this.setState({ questions: questions });
+    }
+    handleTitleChange(q, event) {
+        var questions = this.state.questions.slice();
+        var question = questions[q];
+        var title = event.target.value;
+        question.question = title;
+        this.setState({ questions: questions });
+    }
+    handleDelete(q, i) {
+        var questions = this.state.questions.slice();
+        var question = questions[q];
+        var answers = question.answers;
+        answers.splice(i, 1);
+        this.setState({ questions: questions });
+    }
+    handleChecked(q, i) {
+        var questions = this.state.questions.slice();
+        var question = questions[q];
+        var answers = question.answers;
+        answers[i].correct = !answers[i].correct;
+        this.setState({ questions: questions });
+    }
+
+    handleTypeChange(q, event) {
+        var questions = this.state.questions.slice();
+        var question = questions[q];
+        question.type = event.target.value;
+        this.setState({ questions: questions });
+    }
+    handleQuestionDelete(q) {
+        var questions = this.state.questions.slice();
+        questions.splice(q, 1);
+        this.setState({ questions: questions });
+    }
+
+
+    handleAddQuestion() {
+        var questions = this.state.questions.slice();
+        var id = questions.length ? questions.sort((a, b) => b.id - a.id)[0] : 1;
+        questions.push({
+            id: id,
+            question: "",
+            answers: [
+                {
+                    id: 1,
+                    value: "",
+                    correct: false
+                }
+            ],
+            type: ""
             // id
             // title
             // answers
-        ]
+        })
+        this.setState({ questions: questions });
     }
-    constructor(props) {
-        super(props);
-        this.params
+
+    handleUpdateDatabase() {
+        var quiz = { id: 0, name: this.state.title, questions: this.state.questions };
+        socket.emit('newQuiz', quiz);
     }
+
+    handleQuizTitleChange(event) {
+        var newTitle = event.target.value;
+        this.setState({title: newTitle});
+    }
+
     render() {
         var questions = this.state.questions;
         return html`<div>
-        ${ questions.map( function(q) { return html`<${Question} key=${q.id} title=${q.title} answers=${q.answers} />` } ) }
+        <div class="mb3">
+            <input class="db w-100 question bn bg-transparent f3 b tc input-reset" type="text" placeholder="Quiz Title" value=${this.state.title} onChange=${e => this.handleQuizTitleChange(e)} autofocus />
+        </div>
+        ${ questions.map((question, q) => 
+            html`<${Question} 
+                key=${question.id} 
+                title=${question.question} 
+                answers=${question.answers} 
+                type=${question.type}
+                onAnswerChange=${(i, event) => this.handleAnswerChange(q, i, event)}
+                onAddAnswer=${() => this.handleAddAnswer(q)}
+                onTitleChange=${event => this.handleTitleChange(q, event)}
+                onDelete=${i => this.handleDelete(q, i)} 
+                onChecked=${i => this.handleChecked(q, i)}
+                onTypeChange=${event => this.handleTypeChange(q, event)} 
+                onDelete=${() => this.handleQuestionDelete(q)} />`
+        )}
+        <div class="tc">
+            <button class="input-reset bn br2 pa2" onClick=${() => this.handleAddQuestion()}>Add a question</button>
+            <button class="input-reset bn br2 pa2" onClick=${() => this.handleUpdateDatabase()}>Create quiz</button>
+        </div>
       </div>`
     }
 }
 
-var app = html`<div><h1 class="tc">Quiz Creator Studio</h1><${Question} /></div>`;
+var app = html`<div><h1 class="tc">Quiz Creator Studio</h1><${QuestionList} /></div>`;
 render(app, document.getElementById("app"));

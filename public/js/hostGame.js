@@ -2,6 +2,14 @@ var socket = io();
 
 var params = jQuery.deparam(window.location.search); //Gets the id from url
 
+window.h = preact.h;
+window.Component = preact.Component;
+window.render = preact.render;
+
+var html = htm.bind(h);
+
+var colors = ["#41bbc5", "#fa557a", "#6bdd8c", "#f764de", "#72df19", "#d592eb", "#8dbcf9", "#90a65d"];
+
 var timer;
 
 var time = 20;

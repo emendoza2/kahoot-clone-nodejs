@@ -230,9 +230,17 @@ io.on('connection', (socket) => {
                 var query = { id:  parseInt(gameid)};
                 dbo.collection("kahootGames").find(query).toArray(function(err, res) {
                     if (err) throw err;
-                    var correctAnswer = res[0].questions[gameQuestion - 1].correct;
+                    var question = res[0].questions[gameQuestion - 1];
+                    var answerCorrect = false;
+                    if (question.type === "Open") {
+                        answerCorrect = question.answers.filter(a => a.value === num); // "num" is the old name for "answer"
+                    } else {
+                        var correctAnswers = question.answers.map(a => a.correct);
+                        answerCorrect = correctAnswers[num];
+                    }
+
                     //Checks player answer with correct answer
-                    if(num == correctAnswer){
+                    if (answerCorrect) {
                         player.gameData.score += 100;
                         io.to(game.pin).emit('getTime', socket.id);
                         socket.emit('answerResult', true);
